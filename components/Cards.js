@@ -50,7 +50,7 @@ function makeArticleCard(articleObj) {
 }
 
 axios
-    .get("https://lambda-times-api.herokuapp.com/articles")
+    .get("https://lambda-times-api.herokuapp.com/artices")
     .then(res => {
         //console.log(res);
         //console.log(res.data);
@@ -80,7 +80,13 @@ axios
     })
     .catch(error => {
         console.log("Error", error);
+        const warningMessage = document.createElement("h1");
         const errorMessage = document.createElement("h1");
-        errorMessage.textContent = "Failed to retrieved articles! Check console (Right-click -> Inspect -> Console tab) for details";
-        document.querySelector(".errors-container").appendChild(errorMessage);
+        
+        warningMessage.textContent = "Failed to retrieved articles!";
+        errorMessage.textContent = error;
+
+const errorContainer = document.querySelector(".errors-container");
+        errorContainer.appendChild(warningMessage);
+        errorContainer.appendChild(errorMessage);
     });
