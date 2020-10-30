@@ -53,7 +53,7 @@ axios
     .get("https://lambda-times-api.herokuapp.com/articles")
     .then(res => {
         //console.log(res);
-        console.log(res.data);
+        //console.log(res.data);
         const tabs = document.querySelectorAll(".tab");
         const articlesObj = res.data.articles;
         for (let articleTopic in articlesObj) {
@@ -67,7 +67,7 @@ axios
         tabs.forEach(tab => {
             tab.addEventListener("click", (event) => {
                 tab.classList.toggle("active-tab");
-                console.log(event.target.textContent);
+                //console.log(event.target.textContent);
                 cards.forEach(card => {
                     if (card.classList.contains(event.target.textContent)) {
                         card.style.display = "block";
@@ -89,13 +89,13 @@ axios
         console.log("Error", error);
         const warningMessage = document.createElement("h1");
         const errorMessage = document.createElement("h1");
-        
+
         warningMessage.textContent = "Failed to retrieved articles! Check the console (Right-click -> Inspect -> Console) for more details";
         warningMessage.style.textAlign = "center";
         errorMessage.textContent = error;
         errorMessage.style.textAlign = "center";
 
-const errorContainer = document.querySelector(".errors-container");
+        const errorContainer = document.querySelector(".errors-container");
         errorContainer.appendChild(warningMessage);
         errorContainer.appendChild(errorMessage);
     });
