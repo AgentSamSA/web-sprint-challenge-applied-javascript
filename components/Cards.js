@@ -50,27 +50,37 @@ function makeArticleCard(articleObj) {
 }
 
 axios
-.get("https://lambda-times-api.herokuapp.com/articles")
-.then(res => {
-    //console.log(res);
-    //console.log(res.data);
-    const tabs = document.querySelectorAll(".tab");
-    const articlesObj = res.data.articles;
-    for (let articleTopic in articlesObj) {
-        articlesObj[articleTopic].forEach(article => document.querySelector(".cards-container").appendChild(makeArticleCard(article)));
+    .get("https://lambda-times-api.herokuapp.com/articles")
+    .then(res => {
+        //console.log(res);
+        //console.log(res.data);
+        const tabs = document.querySelectorAll(".tab");
+        const articlesObj = res.data.articles;
+        for (let articleTopic in articlesObj) {
+            articlesObj[articleTopic].forEach(article => {
+                const card = makeArticleCard(article);
+                document.querySelector(".cards-container").appendChild(card);
+                card.classList.add(articleTopic);
+            });
+        }
+        const cards = document.querySelectorAll(".card");
         tabs.forEach(tab => {
             tab.addEventListener("click", (event) => {
                 tab.classList.toggle("active-tab");
-                if (event.target.textContent !== articleTopic) {
-                    tab.classList.remove("active-tab");
-                }
+                console.log(event.target.textContent);
+                cards.forEach(card => {
+                    if (!card.classList.contains(event.target.textContent)) {
+                        card.style.display = "none";
+                    } else {
+                        card.style.display = "block";
+                    }
+                })
             });
         });
-    }
-})
-.catch(error => {
-    console.log("Error", error);
-    const errorMessage = document.createElement("h1");
-    errorMessage.textContent = "Failed to retrieved articles! Check console for details";
-    document.querySelector(".errors-container").appendChild(errorMessage);
-});
+    })
+    .catch(error => {
+        console.log("Error", error);
+        const errorMessage = document.createElement("h1");
+        errorMessage.textContent = "Failed to retrieved articles! Check console for details";
+        document.querySelector(".errors-container").appendChild(errorMessage);
+    });
