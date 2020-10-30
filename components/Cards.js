@@ -52,10 +52,25 @@ function makeArticleCard(articleObj) {
 axios
 .get("https://lambda-times-api.herokuapp.com/articles")
 .then(res => {
-    console.log(res);
-    console.log(res.data);
+    //console.log(res);
+    //console.log(res.data);
+    const tabs = document.querySelectorAll(".tab");
     const articlesObj = res.data.articles;
     for (let articleTopic in articlesObj) {
         articlesObj[articleTopic].forEach(article => document.querySelector(".cards-container").appendChild(makeArticleCard(article)));
+        tabs.forEach(tab => {
+            tab.addEventListener("click", (event) => {
+                tab.classList.toggle("active-tab");
+                if (event.target.textContent !== articleTopic) {
+                    tab.classList.remove("active-tab");
+                }
+            });
+        });
     }
 })
+.catch(error => {
+    console.log("Error", error);
+    const errorMessage = document.createElement("h1");
+    errorMessage.textContent = "Failed to retrieved articles! Check console for details";
+    document.querySelector(".errors-container").appendChild(errorMessage);
+});
