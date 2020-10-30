@@ -49,8 +49,6 @@ function makeArticleCard(articleObj) {
     return card;
 }
 
-const articleTopicArray = [];
-
 axios
 .get("https://lambda-times-api.herokuapp.com/articles")
 .then(res => {
@@ -58,8 +56,6 @@ axios
     console.log(res.data);
     const articlesObj = res.data.articles;
     for (let articleTopic in articlesObj) {
-        articleTopicArray.push(articlesObj[articleTopic]);
+        articlesObj[articleTopic].forEach(article => document.querySelector(".cards-container").appendChild(makeArticleCard(article)));
     }
-    console.log(articleTopicArray);
-    articleTopicArray.forEach(topic => topic.forEach(article => document.querySelector(".cards-container").appendChild(makeArticleCard(article))));
 })
