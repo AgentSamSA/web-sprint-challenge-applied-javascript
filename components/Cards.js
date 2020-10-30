@@ -74,13 +74,13 @@ axios
                     } else {
                         card.style.display = "block";
                     }
-                })
+                });
             });
         });
     })
     .catch(error => {
         console.log("Error", error);
         const errorMessage = document.createElement("h1");
-        errorMessage.textContent = "Failed to retrieved articles! Check console for details";
+        errorMessage.textContent = "Failed to retrieved articles! Check console (Right-click -> Inspect -> Console tab) for details";
         document.querySelector(".errors-container").appendChild(errorMessage);
     });
