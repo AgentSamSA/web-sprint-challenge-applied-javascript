@@ -83,8 +83,10 @@ axios
         const warningMessage = document.createElement("h1");
         const errorMessage = document.createElement("h1");
         
-        warningMessage.textContent = "Failed to retrieved articles!";
+        warningMessage.textContent = "Failed to retrieved articles! Check the console (Right-click -> Inspect -> Console) for more details";
+        warningMessage.style.textAlign = "center";
         errorMessage.textContent = error;
+        errorMessage.style.textAlign = "center";
 
 const errorContainer = document.querySelector(".errors-container");
         errorContainer.appendChild(warningMessage);
