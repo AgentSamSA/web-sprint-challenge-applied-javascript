@@ -50,10 +50,10 @@ function makeArticleCard(articleObj) {
 }
 
 axios
-    .get("https://lambda-times-api.herokuapp.com/artices")
+    .get("https://lambda-times-api.herokuapp.com/articles")
     .then(res => {
         //console.log(res);
-        //console.log(res.data);
+        console.log(res.data);
         const tabs = document.querySelectorAll(".tab");
         const articlesObj = res.data.articles;
         for (let articleTopic in articlesObj) {
@@ -69,9 +69,16 @@ axios
                 tab.classList.toggle("active-tab");
                 console.log(event.target.textContent);
                 cards.forEach(card => {
-                    if (!card.classList.contains(event.target.textContent)) {
-                        card.style.display = "none";
+                    if (card.classList.contains(event.target.textContent)) {
+                        card.style.display = "block";
+                    } else if (event.target.textContent == "node.js" && card.classList.contains("node")) {
+                        card.style.display = "block";
                     } else {
+                        card.style.display = "none";
+                    }
+                });
+                cards.forEach(card => {
+                    if (event.target.textContent == "All") {
                         card.style.display = "block";
                     }
                 });
